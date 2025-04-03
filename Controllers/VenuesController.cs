@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 namespace EventEase_Part_1.Controllers
 {
-    public class VenuesController : Controller
+    public class VenueController : Controller
 {
     private readonly ApplicationDbContext _context;
 
-    public VenuesController(ApplicationDbContext context) { _context = context; }
+    public VenueController(ApplicationDbContext context) { _context = context; }
 
     public async Task<IActionResult> Index() => View(await _context.Venue.ToListAsync());
 
