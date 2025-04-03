@@ -3,9 +3,9 @@
 {
     public class Booking
     {
-        public int BookingId { get; set; }
-        public int EventId { get; set; }
-        public int VenueId { get; set; }
+        public int BookingID { get; set; }
+        public int EventID { get; set; }
+        public int VenueID { get; set; }
         public DateTime BookingDate { get; set; } = DateTime.Now;
 
         public Event Event { get; set; }

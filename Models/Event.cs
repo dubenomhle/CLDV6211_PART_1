@@ -2,11 +2,11 @@
 {
     public class Event
     {
-        public int EventId { get; set; }
-        public string Name { get; set; }
+        public int EventID { get; set; }
+        public string EventName { get; set; }
         public DateTime Date { get; set; }
         public string Description { get; set; }
-        public int? VenueId { get; set; }
+        public int? VenueID { get; set; }
         public Venue Venue { get; set; }
     }
 }
