@@ -15,7 +15,7 @@
     <p><strong>Venue:</strong> @Model.Venue.VenueName</p>
 
     <form asp-action="Delete">
-        <input type="hidden" asp-for="EventId" />
+        <input type="hidden" asp-for="EventID" />
         <button type="submit" class="btn btn-danger">Delete</button>
         <a asp-action="Index" class="btn btn-secondary">Cancel</a>
     </form>

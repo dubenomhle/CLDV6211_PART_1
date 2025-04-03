@@ -1,5 +1,6 @@
 ﻿using EventEase_Part_1.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 namespace EventEase_Part_1.Controllers
 {
