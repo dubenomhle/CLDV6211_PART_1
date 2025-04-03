@@ -1,4 +1,5 @@
 ﻿using EventEase_Part_1.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 namespace EventEase_Part_1.Data
 {
