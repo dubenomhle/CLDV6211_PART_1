@@ -1,0 +1,22 @@
+﻿@model Venue
+
+@{
+    ViewData["Title"] = "Delete Venue";
+}
+
+<h2>Delete Venue</h2>
+
+<p>Are you sure you want to delete this venue?</p>
+
+<div>
+    <h3>@Model.VenueName</h3>
+    <p><strong>Location:</strong> @Model.Location</p>
+    <p><strong>Capacity:</strong> @Model.Capacity</p>
+    <img src="@Model.ImageUrl" width="300" />
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="VenueId" />
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

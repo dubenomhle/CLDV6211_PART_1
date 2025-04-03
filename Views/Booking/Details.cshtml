@@ -1,0 +1,13 @@
+﻿@model Booking
+
+@{
+    ViewData["Title"] = "Booking Details";
+}
+
+<h2>Booking Details</h2>
+
+<p><strong>Event:</strong> @Model.Event.EventName</p>
+<p><strong>Venue:</strong> @Model.Venue.VenueName</p>
+<p><strong>Booking Date:</strong> @Model.BookingDate.ToString("yyyy-MM-dd")</p>
+
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>
