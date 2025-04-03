@@ -10,7 +10,7 @@ namespace EventEase_Part_1.Controllers
 
         public EventsController(ApplicationDbContext context) { _context = context; }
 
-        public async Task<IActionResult> Index() => View(await _context.Events.ToListAsync());
+        public async Task<IActionResult> Index() => View(await _context.Event.ToListAsync());
     }
 
 }

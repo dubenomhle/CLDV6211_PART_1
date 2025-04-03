@@ -11,7 +11,7 @@ namespace EventEase_Part_1.Controllers
 
     public VenuesController(ApplicationDbContext context) { _context = context; }
 
-    public async Task<IActionResult> Index() => View(await _context.Venues.ToListAsync());
+    public async Task<IActionResult> Index() => View(await _context.Venue.ToListAsync());
 
     public IActionResult Create() => View();
 
