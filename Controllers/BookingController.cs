@@ -20,14 +20,14 @@ namespace EventEase_Part_1.Controllers
         // GET: Bookings
         public async Task<IActionResult> Index()
         {
-            var bookings = await _context.Booking
+            var booking = await _context.Booking
                 .Include(b => b.Venue)
                 .Include(b => b.Event)
                 .ToListAsync();
-            return View(bookings);
+            return View(booking);
         }
 
-        // GET: Bookings/Create
+        // GET: Booking/Create
         public IActionResult Create()
         {
             ViewData["VenueID"] = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(_context.Venue, "VenueID", "VenueName");
@@ -49,7 +49,7 @@ namespace EventEase_Part_1.Controllers
             return View(booking);
         }
 
-        // GET: Bookings/Delete/5
+        // GET: Booking/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
