@@ -9,12 +9,12 @@ namespace EventEase_Part_1
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // Add controllers with views
+            builder.Services.AddControllersWithViews();
+
             //AdS the database connection
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-            // Add controllers with views
-            builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 
