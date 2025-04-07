@@ -1,7 +1,12 @@
-﻿namespace EventEase_Part_1.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace EventEase_Part_1.Models
 {
     public class Venue
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int VenueID { get; set; }
         public string VenueName { get; set; }
         public string Location { get; set; }

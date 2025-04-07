@@ -11,6 +11,13 @@ namespace EventEase_Part_1.Controllers
         public EventController(ApplicationDbContext context) { _context = context; }
 
         public async Task<IActionResult> Index() => View(await _context.Event.ToListAsync());
+
+        // GET: Events/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
     }
 
 }
