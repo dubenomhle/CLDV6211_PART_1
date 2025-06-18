@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using EventEase_Part_1.Data;
 using EventEase_Part_1.Models;
+using EventEase_Part_1.ViewModels;
 
 namespace EventEase_Part_1.Controllers
 {
@@ -23,40 +24,51 @@ namespace EventEase_Part_1.Controllers
         {
             ViewBag.EventTypes = new SelectList(await _context.EventType.ToListAsync(), "EventTypeID", "Name");
 
-            var bookings = from b in _context.Booking
-                           .Include(b => b.Venue)
-                           .Include(b => b.Event)
-                           .ThenInclude(e => e.EventType)
-                           select b;
+            var bookingsQuery = _context.Booking
+                .Include(b => b.Venue)
+                .Include(b => b.Event)
+                .ThenInclude(e => e.EventType)
+                .AsQueryable();
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                bookings = bookings.Where(b =>
+                bookingsQuery = bookingsQuery.Where(b =>
                     b.BookingID.ToString().Contains(searchTerm) ||
                     b.Event.EventName.Contains(searchTerm));
             }
 
             if (eventTypeId.HasValue)
             {
-                bookings = bookings.Where(b => b.Event.EventTypeID == eventTypeId);
+                bookingsQuery = bookingsQuery.Where(b => b.Event.EventTypeID == eventTypeId);
             }
 
             if (startDate.HasValue)
             {
-                bookings = bookings.Where(b => b.BookingDate >= startDate.Value);
+                bookingsQuery = bookingsQuery.Where(b => b.BookingDate >= startDate.Value);
             }
 
             if (endDate.HasValue)
             {
-                bookings = bookings.Where(b => b.BookingDate <= endDate.Value);
+                bookingsQuery = bookingsQuery.Where(b => b.BookingDate <= endDate.Value);
             }
 
             if (onlyAvailable.HasValue && onlyAvailable.Value)
             {
-                bookings = bookings.Where(b => b.Venue.Availability);
+                bookingsQuery = bookingsQuery.Where(b => b.Venue.Availability);
             }
 
-            return View(await bookings.ToListAsync());
+            // Project to ViewModel
+            var bookingViewModels = await bookingsQuery
+                .Select(b => new BookingViewModel
+                {
+                    BookingID = b.BookingID,
+                    EventName = b.Event.EventName,
+                    VenueName = b.Venue.VenueName,
+                    BookingDate = b.BookingDate
+                })
+                .ToListAsync();
+
+            return View(bookingViewModels);
         }
 
 
