@@ -18,23 +18,34 @@ namespace EventEase_Part_1.Controllers
         }
 
         // GET: Event
-        public async Task<IActionResult> Index()
+        // ✅ REPLACED OLD INDEX METHOD WITH FILTERING ENHANCED VERSION – Part 3 Question Step 7a
+        public async Task<IActionResult> Index(string searchType, int? venueId, DateTime? startDate, DateTime? endDate)
         {
-            try
-            {
-                var events = await _context.Event
-                    .Include(e => e.Venue)
-                    .ToListAsync();
+            var events = _context.Event
+                .Include(e => e.Venue)
+                .Include(e => e.EventType)
+                .AsQueryable();
 
-                return View(events);
+            if (!string.IsNullOrEmpty(searchType))
+            {
+                events = events.Where(e => e.EventType.Name == searchType);
             }
 
-            catch (Exception ex)
+            if (venueId.HasValue)
             {
-                // Log the exception (ex) here if needed
-                return Problem($"An error occurred: {ex.Message}");
+                events = events.Where(e => e.VenueID == venueId);
             }
 
+            if (startDate.HasValue && endDate.HasValue)
+            {
+                events = events.Where(e => e.EventDate >= startDate && e.EventDate <= endDate);
+            }
+
+            // ✅ Provide data for dropdown filters in the View
+            ViewData["EventTypes"] = _context.EventType.ToList();
+            ViewData["Venues"] = _context.Venue.ToList();
+
+            return View(await events.ToListAsync());
         }
 
         // GET: Event/Create

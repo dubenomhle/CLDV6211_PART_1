@@ -29,6 +29,47 @@
                 <td>@eventItem.Description</td>
                 <td>@eventItem.Venue.VenueName</td>
                 <td>
+
+                    <!-- ✅ Inserted filter form – Part 3 Question (Step 7b): Advanced Filtering -->
+                    <form method="get" class="row mb-4">
+                        <div class="col-md-3">
+                            <label>Event Type</label>
+                            <select name="searchType" class="form-control">
+                                <option value="">-- All Types --</option>
+                                @foreach (var type in (List<EventType>)ViewData["EventTypes"])
+                                {
+                                    <option value="@type.Name">@type.Name</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Venue</label>
+                            <select name="venueId" class="form-control">
+                                <option value="">-- All Venues --</option>
+                                @foreach (var venue in (List<Venue>)ViewData["Venues"])
+                                {
+                                    <option value="@venue.VenueID">@venue.VenueName</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Start Date</label>
+                            <input type="date" name="startDate" class="form-control" />
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>End Date</label>
+                            <input type="date" name="endDate" class="form-control" />
+                        </div>
+
+                        <div class="col-md-12 mt-3">
+                            <button type="submit" class="btn btn-primary">Filter</button>
+                            <a href="/Event/Index" class="btn btn-secondary ml-2">Clear</a>
+                        </div>
+                    </form>
+
                     <a asp-action="Edit" asp-route-id="@eventItem.EventID" class="btn btn-warning">Edit</a>
                     <a asp-action="Details" asp-route-id="@eventItem.EventID" class="btn btn-info">Details</a>
                     <a asp-action="Delete" asp-route-id="@eventItem.EventID" class="btn btn-danger">Delete</a>
