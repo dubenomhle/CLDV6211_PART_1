@@ -20,8 +20,21 @@ namespace EventEase_Part_1.Controllers
         // GET: Event
         public async Task<IActionResult> Index()
         {
-            var events = _context.Event.Include(e => e.Venue);
-            return View(await events.ToListAsync());
+            try
+            {
+                var events = await _context.Event
+                    .Include(e => e.Venue)
+                    .ToListAsync();
+
+                return View(events);
+            }
+
+            catch (Exception ex)
+            {
+                // Log the exception (ex) here if needed
+                return Problem($"An error occurred: {ex.Message}");
+            }
+
         }
 
         // GET: Event/Create
