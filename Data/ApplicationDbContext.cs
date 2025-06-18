@@ -10,6 +10,8 @@ namespace EventEase_Part_1.Data
         public DbSet<Venue> Venue { get; set; }
         public DbSet<Event> Event { get; set; }
         public DbSet<Booking> Booking { get; set; }
+        public DbSet<EventType> EventType { get; set; }
+
     }
 }
 

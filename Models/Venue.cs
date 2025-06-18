@@ -14,6 +14,8 @@ namespace EventEase_Part_1.Models
         public string ImageUrl { get; set; }
 
         public List<Event> Events { get; set; } = new List<Event>();
+        public bool Availability { get; set; } = true;
+
     }
 
 }

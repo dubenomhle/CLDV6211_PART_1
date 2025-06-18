@@ -19,6 +19,9 @@ namespace EventEase_Part_1.Models
 
 
         public Venue Venue { get; set; }
+        public int EventTypeID { get; set; }
+        public EventType EventType { get; set; }
+
     }
 
 }

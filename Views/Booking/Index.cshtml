@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Booking>
+﻿@model IEnumerable<EventEase_Part_1.ViewModels.BookingViewModel>
 
 @{
     ViewData["Title"] = "Bookings";
@@ -6,15 +6,42 @@
 
 <h2>Bookings</h2>
 
+<form asp-action="Index" method="get" class="form-inline mb-3">
+    <input type="text" name="searchTerm" placeholder="Search Booking or Event" class="form-control mr-2" />
+
+    <select name="eventTypeId" class="form-control mr-2">
+        <option value="">-- Select Event Type --</option>
+        @foreach (var type in ViewBag.EventTypes as SelectList)
+        {
+            <option value="@type.Value">@type.Text</option>
+        }
+    </select>
+
+    <input type="date" name="startDate" class="form-control mr-2" />
+    <input type="date" name="endDate" class="form-control mr-2" />
+
+    <label class="form-check-label mr-2">
+        <input type="checkbox" name="onlyAvailable" value="true" class="form-check-input" />
+        Available Venues Only
+    </label>
+
+    <button type="submit" class="btn btn-primary">Filter</button>
+</form>
+
 <p>
-    <a asp-action="Create" class="btn btn-primary">New Booking</a>
+    <a asp-action="Create" class="btn btn-success">New Booking</a>
 </p>
 
-<table class="table">
+<table class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>EventID</th>
-            <th>VenueID</th>
+            <th>Booking ID</th>
+            <th>Event Name</th>
+            <th>Event Type</th>
+            <th>Event Date</th>
+            <th>Venue Name</th>
+            <th>Venue Location</th>
+            <th>Available</th>
             <th>Booking Date</th>
             <th>Actions</th>
         </tr>
@@ -23,8 +50,13 @@
         @foreach (var booking in Model)
         {
             <tr>
-                <td>@booking.Event.EventName</td>
-                <td>@booking.Venue.VenueName</td>
+                <td>@booking.BookingID</td>
+                <td>@booking.EventName</td>
+                <td>@booking.EventType</td>
+                <td>@booking.EventDate.ToString("yyyy-MM-dd")</td>
+                <td>@booking.VenueName</td>
+                <td>@booking.VenueLocation</td>
+                <td>@(booking.VenueAvailable ? "Yes" : "No")</td>
                 <td>@booking.BookingDate.ToString("yyyy-MM-dd")</td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@booking.BookingID" class="btn btn-warning">Edit</a>
@@ -35,3 +67,8 @@
         }
     </tbody>
 </table>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning mt-3">No bookings found matching your filters.</div>
+}
