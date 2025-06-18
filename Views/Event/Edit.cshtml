@@ -33,6 +33,15 @@
         <span asp-validation-for="VenueID" class="text-danger"></span>
     </div>
 
+    <!-- Part Question (Step 6b): This will allow users to select the event type when creating. -->
+    <div class="form-group">
+        <label>Event Type</label>
+        <select asp-for="EventTypeID" asp-items="@(new SelectList((IEnumerable<EventType>)ViewData["EventTypes"], "EventTypeID", "Name"))" class="form-control">
+            <option value="">-- Select Type --</option>
+        </select>
+    </div>
+
+
     <input type="hidden" asp-for="EventID" />
 
     <button type="submit" class="btn btn-success">Save Changes</button>
