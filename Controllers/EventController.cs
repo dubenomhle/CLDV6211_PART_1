@@ -18,7 +18,7 @@ namespace EventEase_Part_1.Controllers
         }
 
         // GET: Event
-        // ✅ REPLACED OLD INDEX METHOD WITH FILTERING ENHANCED VERSION – Part 3 Question Step 7a
+       
         public async Task<IActionResult> Index(string searchType, int? venueId, DateTime? startDate, DateTime? endDate)
         {
             var events = _context.Event
